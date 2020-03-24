@@ -1,0 +1,16 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Editar departamento {{ departamento.cod_departamento }}{% endblock %}
+
+{% block body %}
+    <h1>Editar departamento {{ departamento.cod_departamento }}</h1>
+    <div class="col-12">
+        {{ include("departamentos/_formulario.html.twig", {"button_label": "Actualizar"}) }}
+        {% if is_granted("ROLE_ADMIN") %}
+            {{ include("departamentos/_formulario_borrar.html.twig") }}
+        {% endif %}
+        <div class="row">
+            <a href="{{ path("departamentos_index") }}" class="btn btn-secondary">Volver atras</a>
+        </div>
+    </div>
+{% endblock %}

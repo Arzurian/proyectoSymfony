@@ -1,0 +1,31 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Registro{% endblock %}
+
+{% block body %}
+    <h1>Nuevo usuario</h1>
+    {{ form_start(registro, {'method': 'POST'}) }}
+    <div class="form-group row">
+        <div class="col-3">
+            {{ form_label(registro.username,"Usuario") }}
+            {{ form_widget(registro.username,{"attr":{"class":"form-control"}}) }}
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <div class="col-3">
+            {{ form_label(registro.password,"Contraseña") }}
+            {{ form_widget(registro.password,{"attr":{"class":"form-control"}}) }}
+        </div>
+    </div>
+        
+    <div class="form-group row">
+        <div class="col-3">
+            {{ form_label(registro.descripcion,"Descripcion") }}
+            {{ form_widget(registro.descripcion,{"attr":{"class":"form-control"}}) }}
+        </div>
+    </div>
+    <button class="btn btn-primary">Registrarse</button>
+    <a href="{{ path("app_login") }}" class="btn btn-secondary">Volver atras</a>
+    {{ form_end(registro) }}
+{% endblock %}

@@ -1,0 +1,34 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Departamento {{ departamento.cod_departamento }}{% endblock %}
+
+{% block body %}
+    <h1>Descripcion {{ departamento.cod_departamento }}</h1>
+    <div class="col-4">
+        <table class="table">
+            <tbody>
+                <tr>
+                    <th>Codigo</th>
+                    <td>{{ departamento.cod_departamento }}</td>
+                </tr>
+                <tr>
+                    <th>Descripcion</th>
+                    <td>{{ departamento.desc_departamento }}</td>
+                </tr>
+                <tr>
+                    <th>Volumen negocio</th>
+                    <td>{{ departamento.volumen_negocio }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha creacion</th>
+                    <td>{{ departamento.fecha_creacion }}</td>
+                </tr>
+                <tr>
+                    <th>Fecha baja logica</th>
+                    <td>{{ departamento.fecha_baja_logica }}</td>
+                </tr>
+            </tbody>
+        </table>
+        <a href="{{ path("departamentos_index") }}" class="btn btn-primary">Volver atras</a>
+    </div>
+{% endblock %}

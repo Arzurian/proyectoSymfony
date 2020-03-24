@@ -1,0 +1,68 @@
+{% extends "base.html.twig" %}
+
+{% block title %}Inicio - Departamentos{% endblock %}
+
+{% block body %}
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-10">
+                <a class="btn btn-primary" href="{{ path("departamento_nuevo") }}">Añadir departamento</a>
+                <a href="{{ path('app_logout') }}">Logout</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-8">
+                <div class="table-responsive">
+                    <table class="table table-hover table-sm">
+                        <thead>
+                            <tr>
+                                <th scope="col">Codigo departamento</th>
+                                <th scope="col">Descripcion departamento</th>
+                                <th scope="col">Volumen negocio</th>
+                                <th scope="col">Opciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for departamento in departamentos %} {# Bucle para sacar la informacion de los departamentos #}
+                                <tr>
+                                    <td>{{ departamento.cod_departamento }}</td>
+                                    <td>{{ departamento.desc_departamento }}</td>
+                                    <td>{{ departamento.volumen_negocio }}</td>
+                                    <td>
+                                        <a class="btn btn-primary btn-sm" href="{{ path("ver_departamento",{"cod_departamento":departamento.cod_departamento}) }}">Ver</a>
+                                        {% if is_granted("ROLE_ADMIN_CRUD") %}
+                                            <a class="btn btn-primary btn-sm" href="{{ path("editar_departamento",{"cod_departamento":departamento.cod_departamento}) }}">Editar</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+
+                            {% else %} {# Si no hay datos, salta aqui #}
+                                <tr>
+                                    <th class="display-4 text-center" colspan="4">No hay registros</th>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {#
+        {% if app.user %}
+            <div class="mb-3">
+                You are logged in as {{ app.user.username }}, <a href="{{ path('app_logout') }}">Logout</a>
+                <br>
+                {{ app.user.roles[0] }}
+                <p>{{ app.user.descripcion }}</p>
+    
+                {% if app.user.roles[0] =="ROLE_USER"%}
+                    <p>usuario</p>
+                {% endif %}
+            </div>
+        {% endif %} 
+    #}
+{% endblock %}

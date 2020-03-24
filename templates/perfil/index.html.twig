@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+{%  block title %}Perfil {{ app.user.username }}{% endblock %}
+
+{% block body %}
+
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <h3>Perfil de {{ app.user.username }}</h3>
+            <table class="table">
+                <tr>
+                    <th>Nombre usuario</th>
+                    <td>{{ app.user.username }}</td>
+                </tr>
+                <tr>
+                    <th>Descripcion</th>
+                    <td>{{ app.user.descripcion }}</td>
+                </tr>
+                <tr>
+                    <th>Contraseña</th>
+                    <td><a class="btn btn-primary btn-sm" href="">Modificar</a></td>
+                </tr>
+                <tr>
+                    <th>Roles</th>
+                    <td>
+                        {{ app.user.roles[2] }}
+                        <ul>
+                            {% for rol in app.user.roles %}
+                                {% if rol == "ROLE_USER" %}
+                                    <li>Usuario</li>
+                                    {% endif %}
+
+                                {% if rol == "ROLE_ADMIN" %}
+                                    <li>Administrador</li>
+                                    {% endif %}
+                                
+                                {% if rol == "ROLE_ADMIN_CRUD" %}
+                                    <li>Administrador CRUD</li>
+                                    {% endif %}
+                                
+                            {% endfor %}
+                        </ul>                        
+                    </td>
+                </tr>
+            </table>
+            <a class="btn btn-primary" href="{{ path("editar_perfil") }}">Editar perfil</a>
+            <a class="btn btn-secondary" href="{{ path("index") }}">Atras</a>
+        </div>
+    </div>
+{% endblock %}
