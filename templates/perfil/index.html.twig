@@ -17,12 +17,11 @@
                 </tr>
                 <tr>
                     <th>Contraseña</th>
-                    <td><a class="btn btn-primary btn-sm" href="">Modificar</a></td>
+                    <td><a class="btn btn-primary btn-sm" href="{{ path("editar_password") }}">Modificar</a></td>
                 </tr>
                 <tr>
                     <th>Roles</th>
                     <td>
-                        {{ app.user.roles[2] }}
                         <ul>
                             {% for rol in app.user.roles %}
                                 {% if rol == "ROLE_USER" %}

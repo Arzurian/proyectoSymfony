@@ -10,25 +10,29 @@
                 <a class="btn btn-warning" href="{{ path('app_logout') }}">Cerrar sesion</a>
             </div>
             <div class="col-3">
-                <span>Roles a los que perteneces</span>
+                <p>Que puedes hacer</p>
                 <ul>
                     {% for rol in app.user.roles %}
                         {% if rol == "ROLE_USER" %}
-                            <li>Usuario</li>
+                            <li>Añadir departamentos</li>
+                            {% endif %}
+
+                        {% if rol == "ROLE_ADMIN_CRUD" %}
+                            <li>Editar departamentos</li>
                             {% endif %}
 
                         {% if rol == "ROLE_ADMIN" %}
-                            <li>Administrador</li>
+                            <li>Borrar departamentos</li>
                             {% endif %}
 
                     {% endfor %}
                 </ul>
             </div>
         </div>
-                <div class="row justify-content-center">
-                    <div class="col-6">
-                        <a class="btn btn-primary" href="{{ path("departamentos_index") }}">Mantenimiento departamentos</a>
-                    </div>
-                </div>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <a class="btn btn-primary" href="{{ path("departamentos_index") }}">Mantenimiento departamentos</a>
+            </div>
+        </div>
     {% endif %}
 {% endblock %}

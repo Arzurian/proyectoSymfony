@@ -1,23 +1,31 @@
 {{ form_start(form, {'method': 'POST'}) }}
-    <div class="form-group row">
-        <div class="col-3">
-            {{ form_label(form.cod_departamento,"Codigo departamento") }}
-            {{ form_widget(form.cod_departamento,{"attr":{"class":"form-control"}}) }}
-        </div>
+<div class="form-group row">
+    <div class="col-3">
+        {{ form_label(form.cod_departamento,"Codigo departamento") }}
+        {{ form_widget(form.cod_departamento,{
+            "attr":{"class":"form-control"},
+            "value": codigo|default("")
+        }) }}
     </div>
+</div>
 
-    <div class="form-group row">
-        <div class="col-3">
-            {{ form_label(form.desc_departamento,"Descripcion departamento") }}
-            {{ form_widget(form.desc_departamento,{"attr":{"class":"form-control"}}) }}
-        </div>
+<div class="form-group row">
+    <div class="col-3">
+        {{ form_label(form.desc_departamento,"Descripcion departamento") }}
+        {{ form_widget(form.desc_departamento,{
+            "attr":{"class":"form-control"},
+        }) }}
     </div>
+</div>
 
-    <div class="form-group row">
-        <div class="col-3">
-            {{ form_label(form.volumen_negocio,"Volumen negocio") }}
-            {{ form_widget(form.volumen_negocio,{"attr":{"class":"form-control"}}) }}
-        </div>
+<div class="form-group row">
+    <div class="col-3">
+        {{ form_label(form.volumen_negocio,"Volumen negocio") }}
+        {{ form_widget(form.volumen_negocio,{
+            "attr":{"class":"form-control"},
+            "value": volumen|default("")
+        }) }}
     </div>
-    <button class="btn btn-primary">{{ button_label|default("Crear") }}</button>
+</div>
+<button class="btn btn-primary">{{ button_label|default("Crear") }}</button>
 {{ form_end(form) }}

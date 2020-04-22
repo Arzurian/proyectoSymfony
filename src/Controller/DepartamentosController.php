@@ -49,6 +49,7 @@ class DepartamentosController extends AbstractController {
      * @Route("/nuevo", name="departamento_nuevo", methods={"GET", "POST"})
      */
     public function new(Connection $conexion, Request $request) {
+
         $queryBuilder = $conexion->createQueryBuilder();
         $form = $this->createFormBuilder()
                 ->add("cod_departamento", TextType::class)
@@ -58,18 +59,34 @@ class DepartamentosController extends AbstractController {
         ;
 
         $form->handleRequest($request);
-
+//        $conexion->beginTransaction();
         if ($form->isSubmitted() && $form->isValid()) {
-            $queryBuilder
-                    ->insert("departamento")
-                    ->setValue("cod_departamento", ":cod_departamento")
-                    ->setValue("desc_departamento", ":desc_departamento")
-                    ->setValue("volumen_negocio", ":volumen_negocio")
-                    ->setParameter(":cod_departamento", $form->get("cod_departamento")->getData(), ParameterType::STRING)
-                    ->setParameter(":desc_departamento", $form->get("desc_departamento")->getData(), ParameterType::STRING)
-                    ->setParameter(":volumen_negocio", $form->get("volumen_negocio")->getData(), ParameterType::INTEGER)
-                    ->execute()
-            ;
+            $codDepartamento = strtoupper($form->get("cod_departamento")->getData());
+            $descDepartamento = $form->get("desc_departamento")->getData();
+            $volumen = $form->get("volumen_negocio")->getData();
+            try {
+                $queryBuilder
+                        ->insert("departamento")
+                        ->setValue("cod_departamento", ":cod_departamento")
+                        ->setValue("desc_departamento", ":desc_departamento")
+                        ->setValue("volumen_negocio", ":volumen_negocio")
+                        ->setParameter(":cod_departamento", $codDepartamento, ParameterType::STRING)
+                        ->setParameter(":desc_departamento", $descDepartamento, ParameterType::STRING)
+                        ->setParameter(":volumen_negocio", $volumen, ParameterType::INTEGER)
+                ;
+                $queryBuilder->execute();
+//                $conexion->beginTransaction();
+            } catch (\Exception $exc) {
+//                $conexion->rollBack();
+                return $this->redirectToRoute("departamento_nuevo", [
+                            "codigo" => $codDepartamento,
+                            "descripcion" => $descDepartamento,
+                            "volumen" => $volumen,
+                            "form" => $form->createView()
+                ]);
+            } finally {
+                
+            }
             return $this->redirectToRoute("departamentos_index");
         }
 
@@ -80,7 +97,7 @@ class DepartamentosController extends AbstractController {
 
     /**
      * 
-     * @Route("/{cod_departamento}", name="ver_departamento", methods={"GET"})
+     * @Route("/departamento/{cod_departamento}", name="ver_departamento", methods={"GET"})
      */
     public function show(Connection $conexion, $cod_departamento) {
         $queryBuilder = $conexion->createQueryBuilder();
